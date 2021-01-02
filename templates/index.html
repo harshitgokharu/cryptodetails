@@ -10,8 +10,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </head>
   <body>
-     <h1>"Welcome"</h1>
-     {{ name }}
+     <center>
+     <img src="../static/images/crypto_banner.png" class="img-fluid" width="30%" height="30%">
+     <p><b><u>BTC</u>:</b> {{ btc_dec }}  <b>Mean Price:</b> ${{ btc_mean }}  <b>Today's Price:</b> ${{ btc_today }}</p> 
+     <p><b><u>ETH</u>:</b> {{ eth_dec }}  <b>Mean Price:</b> ${{ eth_mean }}  <b>Today's Price:</b> ${{ eth_today }}</p>
+     <p><b><u>XRP</u>:</b> {{ xrp_dec }}  <b>Mean Price:</b> ${{ xrp_mean }}  <b>Today's Price:</b> ${{ xrp_today }}</p>
+     <p><b><u>XMR</u>:</b> {{ xmr_dec }}  <b>Mean Price:</b> ${{ xmr_mean }}  <b>Today's Price:</b> ${{ xmr_today }}</p>
+     </center>
      <img src={{ url }} class="img-fluid">
      
   </body>
