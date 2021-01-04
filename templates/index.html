@@ -10,6 +10,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </head>
   <body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="twitter">Twitter Wall</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="news">News Wall</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+     
+     
+     
      <center>
      <img src="../static/images/crypto_banner.png" class="img-fluid" width="30%" height="30%">
      <p><b><u>BTC</u>:</b> {{ btc_dec }}  <b>Mean Price:</b> ${{ btc_mean }}  <b>Today's Price:</b> ${{ btc_today }}</p> 
@@ -17,6 +41,7 @@
      <p><b><u>XRP</u>:</b> {{ xrp_dec }}  <b>Mean Price:</b> ${{ xrp_mean }}  <b>Today's Price:</b> ${{ xrp_today }}</p>
      <p><b><u>XMR</u>:</b> {{ xmr_dec }}  <b>Mean Price:</b> ${{ xmr_mean }}  <b>Today's Price:</b> ${{ xmr_today }}</p>
      <p>* buy when the price is 5% lower than mean, sell when the price is 50% higher than mean to <u>minimize risk</u></p>
+      <p>* it may take up to a few hours to refresh the current price</u></p>
      </center>
      <img src={{ url }} class="img-fluid">
      
