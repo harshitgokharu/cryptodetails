@@ -19,13 +19,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link"  href="home">Home</a>
+          <a class="nav-link"  href={{ url_for('home') }}>Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Twitter Wall</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="news">News Wall</a>
+          <a class="nav-link" href={{ url_for('news') }}>News Wall</a>
         </li>
       </ul>
     </div>
