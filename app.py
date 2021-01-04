@@ -118,7 +118,7 @@ xmr_today= '%.2f'%data_comb["XMR"][0]
 
 
 
-@app.route('/home')
+@app.route('/')
 def home():
     return render_template('index.html',btc_dec= btc_dec,eth_dec= eth_dec,xrp_dec= xrp_dec,xmr_dec= xmr_dec,btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, xmr_mean= xmr_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, xmr_today= xmr_today, url='../static/images/crypto_std.png')
 
