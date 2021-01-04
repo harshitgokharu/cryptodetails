@@ -118,9 +118,17 @@ xmr_today= '%.2f'%data_comb["XMR"][0]
 
 
 
-@app.route('/')
+@app.route('/home')
 def home():
     return render_template('index.html',btc_dec= btc_dec,eth_dec= eth_dec,xrp_dec= xrp_dec,xmr_dec= xmr_dec,btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, xmr_mean= xmr_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, xmr_today= xmr_today, url='../static/images/crypto_std.png')
+
+@app.route("/twitter")
+def twitter():
+  return render_template("twitter.html")
+
+@app.route("/news")
+def news():
+  return render_template("news.html")
 
 
 @app.route('/disp',methods=['POST'])
@@ -129,7 +137,7 @@ def disp():
     For rendering results on HTML GUI
     ''' 
 
-    return render_template('index.html',name = 'hello', url='../static/images/crypto_std.png')
+    
 
 
 if __name__ == "__main__":
