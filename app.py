@@ -29,17 +29,11 @@ data_xrp = investpy.get_crypto_historical_data(crypto='xrp', from_date=start_dat
 data_xrp.rename(columns={"Close": "Price"},inplace=True)
 data_xrp = data_xrp.iloc[::-1]
 
-
-data_monero = investpy.get_crypto_historical_data(crypto='monero', from_date=start_date, to_date=end_date)
-data_monero.rename(columns={"Close": "Price"},inplace=True)
-data_monero = data_monero.iloc[::-1]
-
             
 data_comb = pd.DataFrame(index= data_bitcoin.index)
 data_comb["BTC"] = data_bitcoin['Price']
 data_comb["ETH"] = data_ether['Price']  
 data_comb["XRP"] = data_xrp['Price'] 
-data_comb["XMR"] = data_monero['Price'] 
 
 
 dates_list = []
@@ -56,71 +50,33 @@ for i in range(0,len(reverse_data_comb)):
 data_comb = data_comb.assign(Perc_BTC = lambda x:((x['BTC']-x['BTC'].mean())/(x["BTC"].mean())* 100))
 data_comb = data_comb.assign(Perc_ETH = lambda x:((x['ETH']-x['ETH'].mean())/(x["ETH"].mean())* 100))
 data_comb = data_comb.assign(Perc_XRP = lambda x:((x['XRP']-x['XRP'].mean())/(x["XRP"].mean())* 100))
-data_comb = data_comb.assign(Perc_XMR = lambda x:((x['XMR']-x['XMR'].mean())/(x["XMR"].mean())* 100))
 
 
 plt.figure(figsize=(100, 40))
 plt.plot(data_comb.index,data_comb['Perc_BTC'], label="Percentage from mean BTC",linewidth=6.0)
 plt.plot(data_comb.index,data_comb['Perc_ETH'], label="Percentage from mean ETH",linewidth=6.0)
 plt.plot(data_comb.index,data_comb['Perc_XRP'], label="Percentage from mean XRP",linewidth=6.0)
-plt.plot(data_comb.index,data_comb['Perc_XMR'], label="Percentage from mean XMR",linewidth=6.0)
 plt.axhline(y=0, color='black', linestyle='-')
-plt.yticks(fontsize=50)
+plt.yticks([-50,0,50,100,150,200,250,300,350],fontsize=50)
 plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
 plt.legend(loc=0, prop={'size': 60})
     
 plt.savefig('static/images/crypto_std.png')
 
-btc_dec = ""
-eth_dec = ""
-xrp_dec = ""
-xmr_dec = ""
-
-if data_comb["BTC"][0] <= 0.95*data_comb["BTC"].mean():
-    btc_dec= "buy"
-elif data_comb["BTC"][0] > 1.5*data_comb["BTC"].mean():
-    btc_dec= "sell"
-else:
-    btc_dec= "do nothing"
-
-    
-if data_comb["ETH"][0] <= 0.95*data_comb["ETH"].mean():
-    eth_dec= "buy"
-elif data_comb["ETH"][0] > 1.5*data_comb["ETH"].mean():
-    eth_dec= "sell"
-else:
-    eth_dec= "do nothing"
-    
-
-if data_comb["XRP"][0] <= 0.95*data_comb["XRP"].mean():
-    xrp_dec= "buy"
-elif data_comb["XRP"][0] > 1.5*data_comb["XRP"].mean():
-    xrp_dec= "sell"
-else:
-    xrp_dec= "do nothing"
-
-if data_comb["XMR"][0] <= 0.95*data_comb["XMR"].mean():
-    mnr_dec= "buy"
-elif data_comb["XMR"][0] > 1.5*data_comb["XMR"].mean():
-    xmr_dec= "sell"
-else:
-    xmr_dec= "do nothing"
 
 btc_mean= '%.2f'%data_comb["BTC"].mean()
 eth_mean= '%.2f'%data_comb["ETH"].mean()
 xrp_mean= '%.2f'%data_comb["XRP"].mean()
-xmr_mean= '%.2f'%data_comb["XMR"].mean()
 
 btc_today= '%.2f'%data_comb["BTC"][0]
 eth_today= '%.2f'%data_comb["ETH"][0]
 xrp_today= '%.2f'%data_comb["XRP"][0]
-xmr_today= '%.2f'%data_comb["XMR"][0]
 
 
 
 @app.route('/')
 def home():
-    return render_template('index.html',btc_dec= btc_dec,eth_dec= eth_dec,xrp_dec= xrp_dec,xmr_dec= xmr_dec,btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, xmr_mean= xmr_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, xmr_today= xmr_today, url='../static/images/crypto_std.png')
+    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url='../static/images/crypto_std.png')
 
 @app.route("/twitter")
 def twitter():
@@ -130,14 +86,6 @@ def twitter():
 def news():
   return render_template("news.html")
 
-
-@app.route('/disp',methods=['POST'])
-def disp():
-    '''
-    For rendering results on HTML GUI
-    ''' 
-
-    
 
 
 if __name__ == "__main__":
