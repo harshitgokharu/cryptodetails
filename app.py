@@ -61,7 +61,7 @@ plt.yticks([-50,0,50,100,150,200,250,300,350],fontsize=50)
 plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
 plt.legend(loc=0, prop={'size': 60})
     
-plt.savefig('static/images/crypto_std.png')
+#plt.savefig('static/images/crypto_std.png')
 
 
 btc_mean= '%.2f'%data_comb["BTC"].mean()
@@ -76,7 +76,8 @@ xrp_today= '%.2f'%data_comb["XRP"][0]
 
 @app.route('/')
 def home():
-    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url='../static/images/crypto_std.png')
+    #return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url='../static/images/crypto_std.png')
+    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today)
 
 @app.route("/twitter")
 def twitter():
