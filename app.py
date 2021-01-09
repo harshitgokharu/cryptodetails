@@ -6,10 +6,10 @@ from datetime import datetime
 from datetime import timedelta
 import investpy
 
-application =  Flask(__name__)
+app =  Flask(__name__)
 
 
-application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 def ref():
     end_date = datetime.today().strftime('%d/%m/%Y')
@@ -86,22 +86,22 @@ def ref():
 
 
 
-@application.route('/')
+@app.route('/')
 def home():
     ref()
     return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png')
 
-@application.route("/twitter")
+@app.route("/twitter")
 def twitter():
   return render_template("twitter.html")
 
-@application.route("/news")
+@app.route("/news")
 def news():
   return render_template("news.html")
 
 
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    app.run(debug=True)
     
     
