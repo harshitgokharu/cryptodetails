@@ -6,10 +6,10 @@ from datetime import datetime
 from datetime import timedelta
 import investpy
 
-application =  Flask(__name__)
+app =  Flask(__name__)
 
 
-application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 def ref():
     end_date = datetime.today().strftime('%d/%m/%Y')
@@ -126,6 +126,6 @@ def news():
 
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    app.run(debug=True)
     
     
