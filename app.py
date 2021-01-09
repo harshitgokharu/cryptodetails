@@ -64,7 +64,29 @@ def ref():
     plt.legend(loc=0, prop={'size': 60})
     
     plt.savefig('static/images/crypto_perc.png')
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['BTC'], label="BTC in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/btc.png')
 
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['ETH'], label="ETH in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/eth.png')
+
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['XRP'], label="XRP in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/xrp.png')
 
     global btc_mean
     global eth_mean
@@ -86,10 +108,10 @@ def ref():
 
 
 
-@app.route('/')
+@application.route('/')
 def home():
     ref()
-    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png')
+    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png', url2='../static/images/btc.png', url3='../static/images/eth.png', url4='../static/images/xrp.png')
 
 @app.route("/twitter")
 def twitter():
