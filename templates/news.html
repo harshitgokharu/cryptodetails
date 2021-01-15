@@ -646,7 +646,7 @@ func_investing()
 
 
 function func_investing(){
-$.get(CORS_PROXY + 'https://www.investing.com/rss/news_301.rss', function (data) {
+$.ajax({url: CORS_PROXY + 'https://www.investing.com/rss/news_301.rss',headers: {"X-Requested-With": "XMLHttpRequest"}, success:function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
@@ -679,6 +679,7 @@ $.get(CORS_PROXY + 'https://www.investing.com/rss/news_301.rss', function (data)
 
 
 func_ndtv()    
+}
 });
 
 }
