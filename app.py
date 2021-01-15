@@ -89,8 +89,7 @@ def ref():
 @app.route('/')
 def home():
     ref()
-    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png', url2='../static/images/btc.png', url3='../static/images/eth.png', url4='../static/images/xrp.png')
-
+    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png')
 @app.route("/twitter")
 def twitter():
   return render_template("twitter.html")
