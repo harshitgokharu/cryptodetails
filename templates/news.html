@@ -20,9 +20,14 @@
        }
 
        .row{
-        margin-right :auto !important ;
-        margin-left :auto !important ;
+         margin-right :auto !important ;
+         margin-left :auto !important ;
        }
+
+       .navbar-toggler:focus{
+          outline: none;
+       }
+
     </style>
 
   </head>
@@ -636,62 +641,11 @@ $.get(CORS_PROXY + 'https://www.ft.com/?format=rss', function (data) {
       }
     });
 
-func_investing()    
+func_ndtv()    
 });
 
 }
 
-
-  
-  
-function func_investing(){
-  
-var x = new XMLHttpRequest();
-x.open('GET', CORS_PROXY + 'https://www.investing.com/rss/news_301.rss');
-// I put "XMLHttpRequest" here, but you can use anything you want.
-x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-x.onload = function(data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-        console.log(el.find("pubDate").text())
-       
-
-
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           <div class="col">
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Investing.com</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-   
-}
-x.send();
-func_ndtv() 
-}
-  
-  
-  
-  
-  
-  
-  
 
 
 
