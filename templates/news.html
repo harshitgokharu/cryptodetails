@@ -642,11 +642,14 @@ func_investing()
 }
 
 
-
-
-
-function func_investing(){
-$.ajax({url: CORS_PROXY + 'https://www.investing.com/rss/news_301.rss',headers: {"X-Requested-With": "XMLHttpRequest"}, success:function (data) {
+  
+  
+  
+var x = new XMLHttpRequest();
+x.open('GET', CORS_PROXY + 'https://www.investing.com/rss/news_301.rss');
+// I put "XMLHttpRequest" here, but you can use anything you want.
+x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+x.onload = function() {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
@@ -676,13 +679,18 @@ $.ajax({url: CORS_PROXY + 'https://www.investing.com/rss/news_301.rss',headers: 
       `;
       }
     });
-
-
-func_ndtv()    
+   
 }
-});
-
-}
+};
+x.send();
+func_ndtv() 
+  
+  
+  
+  
+  
+  
+  
 
 
 
