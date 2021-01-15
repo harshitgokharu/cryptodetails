@@ -63,7 +63,7 @@ def ref():
     plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
     plt.legend(loc=0, prop={'size': 60})
     
-    #plt.savefig('static/images/crypto_perc.png')
+    plt.savefig('static/images/crypto_perc.png')
 
 
     global btc_mean
@@ -86,16 +86,16 @@ def ref():
 
 
 
-@application.route('/')
+@app.route('/')
 def home():
     ref()
     return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png', url2='../static/images/btc.png', url3='../static/images/eth.png', url4='../static/images/xrp.png')
 
-@application.route("/twitter")
+@app.route("/twitter")
 def twitter():
   return render_template("twitter.html")
 
-@application.route("/news")
+@app.route("/news")
 def news():
   return render_template("news.html")
 
