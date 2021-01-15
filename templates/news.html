@@ -644,6 +644,7 @@ func_investing()
 
   
   
+function func_investing(){
   
 var x = new XMLHttpRequest();
 x.open('GET', CORS_PROXY + 'https://www.investing.com/rss/news_301.rss');
@@ -683,6 +684,7 @@ x.onload = function(data) {
 }
 x.send();
 func_ndtv() 
+}
   
   
   
