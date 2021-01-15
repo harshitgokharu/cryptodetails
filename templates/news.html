@@ -649,7 +649,7 @@ var x = new XMLHttpRequest();
 x.open('GET', CORS_PROXY + 'https://www.investing.com/rss/news_301.rss');
 // I put "XMLHttpRequest" here, but you can use anything you want.
 x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-x.onload = function() {
+x.onload = function(data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
