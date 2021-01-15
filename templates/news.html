@@ -8,22 +8,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  
+    
 
     <style>
-    .card{
-      border: 0 !important ;
-    }
+      a{
+         text-decoration: none;
+       }
 
-    .row{
-      margin-right :auto !important ;
-      margin-left :auto !important ;
-    }
+      .card{
+         color:black;
+       }
+
+       .row{
+         margin-right :auto !important ;
+         margin-left :auto !important ;
+       }
 
     </style>
 
+  </head>
 
-</head>
   <body>
 
      <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -34,16 +38,24 @@
          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
            <div class="navbar-nav">
              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link active" aria-current="page" href="#">Twitter</a>
-             <a class="nav-link" href="{{ url_for('news') }}">News Wall</a>
+             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter</a>
+             <a class="nav-link active" aria-current="page" href="#">News Wall</a>
            </div>
          </div>
        </div>
      </nav>
+
      
      <br>
-     <div class="row row-cols-1 row-cols-md-3 g-4 container">
 
+     <div class="d-flex h-100 justify-content-center align-items-center">
+       <div class="spinner-border text-secondary" role="status">
+         <span class="visually-hidden"></span>
+       </div>
+     </div>
+
+     
+  </body>
 
 
 <script>
@@ -52,389 +64,738 @@
 // To get around this, you can use a proxy.
 const CORS_PROXY = "https://access-cors.herokuapp.com/"
 
+var html = ``;
+var strcmp = ["Bitcoin","bitcoin", "bitcoin","Bitcoin's","BTC","Ethereum","Ether","ETH","Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto"];
 
-var strcmp = ["Bitcoin","bitcoin", "bitcoin","Bitcoin's","BTC","btc", "Ethereum","Ether","ether", "ETH","eth", "Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto"];
 
 
-function func_chamath(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/chamath', function (data) {
-    var html = ``;
+var today = new Date()
+var yesterday = new Date(today)
+var tomorrow = new Date(today)
+yesterday.setDate(yesterday.getDate() - 1)
+tomorrow.setDate(tomorrow.getDate() + 1)
+
+today = today.toUTCString().slice(0,17);
+yesterday = yesterday.toUTCString().slice(0,17);
+tomorrow = tomorrow.toUTCString().slice(0,17);
+
+console.log("today:"+ today)
+console.log("yesterday:"+ yesterday)
+console.log("tomorrow:"+ tomorrow)
+
+var itoday = new Date()
+var iyesterday = new Date(itoday)
+var itomorrow = new Date(itoday)
+iyesterday.setDate(iyesterday.getDate() - 1)
+itomorrow.setDate(itomorrow.getDate() + 1)
+
+itoday = itoday.toISOString().slice(0,10);
+iyesterday = iyesterday.toISOString().slice(0,10);
+itomorrow = itomorrow.toISOString().slice(0,10);
+
+console.log("itoday:"+ itoday)
+console.log("iyesterday:"+ iyesterday)
+console.log("itomorrow:"+ itomorrow)
+
+var dtcmp = [today,yesterday, tomorrow,itoday,iyesterday,itomorrow]
+console.log(dtcmp)
+
+
+
+function func_economictimes(){
+$.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
-        
         var el = $(this);
- 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t))){ 
-        
-        
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/chamath" target="_blank">@chamath</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
-      }
-       
-      console.log(el.find("description").text())
-
-    });
-
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_vitalikbuterin()
-});
-
-}
-
-
-function func_vitalikbuterin(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/VitalikButerin', function (data) {
-    var html = ``;
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
      
-        var el = $(this);
- 
-
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t))){  
-        
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/VitalikButerin" target="_blank">@VitalikButerin</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
-      }
-       
-      console.log(el.find("description").text())
-
-    });
-
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_jack()
-});
-
-}
-
-
-
-function func_jack(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/jack', function (data) {
-    var html = ``;
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
-        var el = $(this);
+        console.log(el.find("pubDate").text())
  
 
 
         title = el.find("title").text().split(" ")
 
-        if(strcmp.some(v => title.some(t => v==t))){ 
-        
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/jack" target="_blank">@jack</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+              
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Economic Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
       }
-       
-      console.log(el.find("description").text())
-
     });
 
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_naval()
+func_cnbc()
 });
+
 
 }
 
 
-function func_naval(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/naval', function (data) {
-    var html = ``;
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        
 
+function func_cnbc(){
+$.get(CORS_PROXY + 'https://www.cnbc.com/id/10000664/device/rss/rss.html', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
     
-        var el = $(this);
- 
+
 
         title = el.find("title").text().split(" ")
 
-        if(strcmp.some(v => title.some(t => v==t))){ 
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
         html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/naval" target="_blank">@naval</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CNBC</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
       }
-       
-      console.log(el.find("description").text())
-
     });
+  
+$.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+    
 
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_timdraper()
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CNBC</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+  
+func_yahoo()  
 });
+
+});
+
+
 
 }
 
 
-function func_timdraper(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/TimDraper', function (data) {
-    var html = ``;
+
+
+function func_yahoo(){
+$.get(CORS_PROXY + 'https://finance.yahoo.com/news/rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
-
         var el = $(this);
- 
+     
+        console.log(el.find("pubDate").text())
+       
 
 
         title = el.find("title").text().split(" ")
 
-        if(strcmp.some(v => title.some(t => v==t))){ 
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
         
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
         html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/TimDraper" target="_blank">@TimDraper</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Yahoo News</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
       }
-       
-      console.log(el.find("description").text())
-
     });
-
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_elonmusk()
-});
-
-}
-
-
-function func_elonmusk(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/elonmusk', function (data) {
-    var html = ``;
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
-        
-        var el = $(this);
- 
-
-
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t))){ 
-        
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/elonmusk" target="_blank">@elonmusk</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
-      }
-       
-      console.log(el.find("description").text())
-
-    });
-
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_kunalb11()
+  
+func_bitcoin()  
 });
 
 }
 
 
 
-function func_kunalb11(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/kunalb11', function (data) {
-    var html = ``;
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
 
+function func_bitcoin(){
+$.get(CORS_PROXY + 'https://news.bitcoin.com/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+        
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Bitcoin.com</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_telegraph()    
+});
+
+}
+
+
+
+
+function func_telegraph(){
+$.get(CORS_PROXY + 'https://www.telegraph.co.uk/news/rss.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Telegraph</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+$.get(CORS_PROXY + 'https://www.telegraph.co.uk/technology/rss.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Telegraph</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_nypost()   
+ 
+});   
+});
+
+}
+
+
+
+
+
+
+function func_nypost(){
+$.get(CORS_PROXY + 'https://nypost.com/tech/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>NY Post</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+$.get(CORS_PROXY + 'https://nypost.com/business/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>NY Post</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_businessinsider()   
+ 
+});   
+});
+
+}
+
+
+
+
+function func_businessinsider(){
+$.get(CORS_PROXY + 'https://markets.businessinsider.com/rss/news', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Business Insider</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_coindesk()    
+});
+
+}
+
+
+
+
+function func_coindesk(){
+$.get(CORS_PROXY + 'https://www.coindesk.com/feed', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Coindesk</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_wired()    
+});
+
+}
+
+
+
+
+function func_wired(){
+$.get(CORS_PROXY + 'https://www.wired.co.uk/rss/article', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Wired</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_mirror()    
+});
+
+}
+
+
+
+
+
+function func_mirror(){
+$.get(CORS_PROXY + 'https://www.mirror.co.uk/money/?service=rss', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+     
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Mirror</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_financialtimes()    
+});
+
+}
+
+function func_financialtimes(){
+$.get(CORS_PROXY + 'https://www.ft.com/?format=rss', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+     
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Financial Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_ndtv()    
+});
+
+}
+
+
+
+
+function func_ndtv(){
+$.get(CORS_PROXY + 'https://gadgets.ndtv.com/rss/internet/feeds', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>NDTV</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+ 
+func_nytimes()   
+});
+
+}
+
+
+
+
+function func_nytimes(){
+$.get(CORS_PROXY + 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml ', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+       
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>NY Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+ 
+func_hindustantimes()   
+});
+
+}
+
+
+
+
+function func_hindustantimes(){
+$.get(CORS_PROXY + 'https://api.hindustantimes.com/feeds/rss/business/rssfeed.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+     
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Hindustan Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_moneycontrol()    
+});
+
+}
+
+
+
+
+
+function func_moneycontrol(){
+$.get(CORS_PROXY + 'https://www.moneycontrol.com/rss/business.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
       
-        var el = $(this);
- 
 
 
         title = el.find("title").text().split(" ")
 
-        if(strcmp.some(v => title.some(t => v==t))){  
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
         html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/kunalb11" target="_blank">@kunalb11</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>MoneyControl</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
       }
-       
-      console.log(el.find("description").text())
-
     });
 
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_mkbhd()
+func_theguardian()    
 });
 
 }
@@ -442,123 +803,117 @@ func_mkbhd()
 
 
 
-function func_mkbhd(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/MKBHD', function (data) {
-    var html = ``;
+function func_theguardian(){
+$.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
 
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>TheGuardian</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+func_techcrunch()    
+});
+
+}
+
+
+
+function func_techcrunch(){
+$.get(CORS_PROXY + 'https://techcrunch.com/fundings-exits/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        console.log(el.find("pubDate").text())
+
+
+        title = el.find("title").text().split(" ")
+
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>TechCrunch</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
     
+});
+
+$.get(CORS_PROXY + 'https://techcrunch.com/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
- 
+     
+        console.log(el.find("pubDate").text())
 
 
         title = el.find("title").text().split(" ")
 
-        if(strcmp.some(v => title.some(t => v==t))){  
+        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
         
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
         html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/MKBHD" target="_blank">@MKBHD</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>TechCrunch</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
       }
-       
-      console.log(el.find("description").text())
-
     });
 
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_tyler()
+$( ".d-flex" ).remove();
+html = `<div class="row row-cols-1 row-cols-md-3 g-4 container">` + html + `</div><br>`
+document.body.insertAdjacentHTML("beforeend", html)
+
 });
 
 }
 
-
-
-
-function func_tyler(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/tyler', function (data) {
-        var html = ``;
-        $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
-       
-        var el = $(this);
- 
-
-
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t))){ 
-        
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/tyler" target="_blank">@tyler</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-        else{
-        html += `
-
-        <div class="col">
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-        </div>
-
-        `;
-        }
-
-      }
-
-      console.log(el.find("description").text())
-
-    });
-
-document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-});
-
-}
-
-
-
-
-func_chamath()
+func_economictimes()
 
 </script>
-
-     
 
 </html>
