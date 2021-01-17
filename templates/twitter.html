@@ -34,7 +34,7 @@
          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
            <div class="navbar-nav">
              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link active" aria-current="page" href="#">Twitter</a>
+             <a class="nav-link active" aria-current="page" href="#">Twitter Wall</a>
              <a class="nav-link" href="{{ url_for('news') }}">News Wall</a>
            </div>
          </div>
@@ -43,6 +43,7 @@
      
      <br>
      <div class="row row-cols-1 row-cols-md-3 g-4 container">
+     </div>
 
 
 
@@ -54,7 +55,6 @@ const CORS_PROXY = "https://access-cors.herokuapp.com/"
 
 
 var strcmp = ["Bitcoin", "bitcoin","BTC","btc", "Ethereum","Ether","ether", "ETH","eth", "Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto","#Bitcoin","#bitcoin", "#BTC","#btc", "#Ethereum","#Ether","#ether", "#ETH","#eth", "#Ripple","#ripple","#XRP","#xrp","#Cryptocurrency","#cryptocurrency","#Crypto","#crypto"];
-
 
 function func_chamath(){
 $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/chamath', function (data) {
@@ -99,7 +99,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/chamath', function (data) {
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -153,7 +152,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/VitalikButerin', function (d
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -208,7 +206,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/jack', function (data) {
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -263,7 +260,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/naval', function (data) {
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -318,7 +314,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/TimDraper', function (data) 
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -373,7 +368,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/elonmusk', function (data) {
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -429,7 +423,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/kunalb11', function (data) {
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -486,7 +479,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/MKBHD', function (data) {
 
       }
        
-      console.log(el.find("description").text())
 
     });
 
@@ -543,7 +535,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/tyler', function (data) {
 
       }
 
-      console.log(el.find("description").text())
 
     });
 
