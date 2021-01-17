@@ -38,7 +38,7 @@
          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
            <div class="navbar-nav">
              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter</a>
+             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter Wall</a>
              <a class="nav-link active" aria-current="page" href="#">News Wall</a>
            </div>
          </div>
@@ -48,11 +48,10 @@
      
      <br>
 
-     <div class="d-flex h-100 justify-content-center align-items-center">
-       <div class="spinner-border text-secondary" role="status">
-         <span class="visually-hidden"></span>
-       </div>
+     <div class="row row-cols-1 row-cols-md-3 g-4 container">
      </div>
+
+     <br>
 
      
   </body>
@@ -64,7 +63,6 @@
 // To get around this, you can use a proxy.
 const CORS_PROXY = "https://access-cors.herokuapp.com/"
 
-var html = ``;
 var strcmp = ["Bitcoin","bitcoin", "bitcoin","Bitcoin's","BTC","Ethereum","Ether","ETH","Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto"];
 
 
@@ -79,9 +77,6 @@ today = today.toUTCString().slice(0,17);
 yesterday = yesterday.toUTCString().slice(0,17);
 tomorrow = tomorrow.toUTCString().slice(0,17);
 
-console.log("today:"+ today)
-console.log("yesterday:"+ yesterday)
-console.log("tomorrow:"+ tomorrow)
 
 var itoday = new Date()
 var iyesterday = new Date(itoday)
@@ -93,27 +88,21 @@ itoday = itoday.toISOString().slice(0,10);
 iyesterday = iyesterday.toISOString().slice(0,10);
 itomorrow = itomorrow.toISOString().slice(0,10);
 
-console.log("itoday:"+ itoday)
-console.log("iyesterday:"+ iyesterday)
-console.log("itomorrow:"+ itomorrow)
 
 var dtcmp = [today,yesterday, tomorrow,itoday,iyesterday,itomorrow]
-console.log(dtcmp)
 
 
 
 function func_economictimes(){
+var html = ``;
 $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
  
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         html += `
            <div class="col">
              <a href="${el.find("link").text()}" target="_blank">
@@ -133,8 +122,40 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/stocks/rssfeeds
       }
     });
 
-func_cnbc()
+$.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/expert-view/rssfeeds/50649960.cms', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Economic Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+  
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
+func_cnbc()  
 });
+
+});
+
 
 
 }
@@ -142,17 +163,15 @@ func_cnbc()
 
 
 function func_cnbc(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.cnbc.com/id/10000664/device/rss/rss.html', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
     
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -177,13 +196,10 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', funct
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
     
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -203,7 +219,8 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', funct
       `;
       }
     });
-  
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html) 
 func_yahoo()  
 });
 
@@ -217,17 +234,15 @@ func_yahoo()
 
 
 function func_yahoo(){
+var html = ``;
 $.get(CORS_PROXY + 'https://finance.yahoo.com/news/rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -247,7 +262,8 @@ $.get(CORS_PROXY + 'https://finance.yahoo.com/news/rss', function (data) {
       `;
       }
     });
-  
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)  
 func_bitcoin()  
 });
 
@@ -257,17 +273,15 @@ func_bitcoin()
 
 
 function func_bitcoin(){
+var html = ``;
 $.get(CORS_PROXY + 'https://news.bitcoin.com/feed/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
         
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -288,6 +302,7 @@ $.get(CORS_PROXY + 'https://news.bitcoin.com/feed/', function (data) {
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_telegraph()    
 });
 
@@ -297,17 +312,15 @@ func_telegraph()
 
 
 function func_telegraph(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.telegraph.co.uk/news/rss.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -332,13 +345,10 @@ $.get(CORS_PROXY + 'https://www.telegraph.co.uk/technology/rss.xml', function (d
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -359,6 +369,7 @@ $.get(CORS_PROXY + 'https://www.telegraph.co.uk/technology/rss.xml', function (d
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_nypost()   
  
 });   
@@ -372,17 +383,15 @@ func_nypost()
 
 
 function func_nypost(){
+var html = ``;
 $.get(CORS_PROXY + 'https://nypost.com/tech/feed/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
-     
-        console.log(el.find("pubDate").text())
+
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -407,13 +416,10 @@ $.get(CORS_PROXY + 'https://nypost.com/business/feed/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -434,6 +440,7 @@ $.get(CORS_PROXY + 'https://nypost.com/business/feed/', function (data) {
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_businessinsider()   
  
 });   
@@ -445,17 +452,15 @@ func_businessinsider()
 
 
 function func_businessinsider(){
+var html = ``;
 $.get(CORS_PROXY + 'https://markets.businessinsider.com/rss/news', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -476,6 +481,7 @@ $.get(CORS_PROXY + 'https://markets.businessinsider.com/rss/news', function (dat
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_coindesk()    
 });
 
@@ -485,17 +491,15 @@ func_coindesk()
 
 
 function func_coindesk(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.coindesk.com/feed', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -516,6 +520,7 @@ $.get(CORS_PROXY + 'https://www.coindesk.com/feed', function (data) {
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_wired()    
 });
 
@@ -525,17 +530,15 @@ func_wired()
 
 
 function func_wired(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.wired.co.uk/rss/article', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -556,6 +559,7 @@ $.get(CORS_PROXY + 'https://www.wired.co.uk/rss/article', function (data) {
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_mirror()    
 });
 
@@ -566,17 +570,15 @@ func_mirror()
 
 
 function func_mirror(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.mirror.co.uk/money/?service=rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
      
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -597,23 +599,22 @@ $.get(CORS_PROXY + 'https://www.mirror.co.uk/money/?service=rss', function (data
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_financialtimes()    
 });
 
 }
 
 function func_financialtimes(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.ft.com/?format=rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
      
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -634,7 +635,8 @@ $.get(CORS_PROXY + 'https://www.ft.com/?format=rss', function (data) {
       }
     });
 
-func_ndtv()    
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
+func_investing()    
 });
 
 }
@@ -642,18 +644,55 @@ func_ndtv()
 
 
 
+
+function func_investing(){
+var html = ``;
+$.get(CORS_PROXY + 'https://www.investing.com/rss/news_301.rss', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+       
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Investing.com</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
+func_ndtv()    
+});
+
+}
+
+
+
 function func_ndtv(){
+var html = ``;
 $.get(CORS_PROXY + 'https://gadgets.ndtv.com/rss/internet/feeds', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -673,7 +712,8 @@ $.get(CORS_PROXY + 'https://gadgets.ndtv.com/rss/internet/feeds', function (data
       `;
       }
     });
- 
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_nytimes()   
 });
 
@@ -683,17 +723,15 @@ func_nytimes()
 
 
 function func_nytimes(){
+var html = ``;
 $.get(CORS_PROXY + 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml ', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
        
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -713,7 +751,8 @@ $.get(CORS_PROXY + 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml 
       `;
       }
     });
- 
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html) 
 func_hindustantimes()   
 });
 
@@ -723,17 +762,15 @@ func_hindustantimes()
 
 
 function func_hindustantimes(){
+var html = ``;
 $.get(CORS_PROXY + 'https://api.hindustantimes.com/feeds/rss/business/rssfeed.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
      
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -754,6 +791,7 @@ $.get(CORS_PROXY + 'https://api.hindustantimes.com/feeds/rss/business/rssfeed.xm
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_moneycontrol()    
 });
 
@@ -764,17 +802,15 @@ func_moneycontrol()
 
 
 function func_moneycontrol(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.moneycontrol.com/rss/business.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
-     
-        console.log(el.find("pubDate").text())
+
       
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -795,6 +831,7 @@ $.get(CORS_PROXY + 'https://www.moneycontrol.com/rss/business.xml', function (da
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_theguardian()    
 });
 
@@ -804,16 +841,14 @@ func_theguardian()
 
 
 function func_theguardian(){
+var html = ``;
 $.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -834,6 +869,7 @@ $.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data
       }
     });
 
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_techcrunch()    
 });
 
@@ -842,16 +878,14 @@ func_techcrunch()
 
 
 function func_techcrunch(){
+var html = ``;
 $.get(CORS_PROXY + 'https://techcrunch.com/fundings-exits/feed/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
-     
-        console.log(el.find("pubDate").text())
 
 
-        title = el.find("title").text().split(" ")
 
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -878,12 +912,9 @@ $.get(CORS_PROXY + 'https://techcrunch.com/feed/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-        console.log(el.find("pubDate").text())
 
 
-        title = el.find("title").text().split(" ")
-
-        if(strcmp.some(v => title.some(t => v==t)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){  
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            <div class="col">
@@ -904,13 +935,14 @@ $.get(CORS_PROXY + 'https://techcrunch.com/feed/', function (data) {
       }
     });
 
-$( ".d-flex" ).remove();
-html = `<div class="row row-cols-1 row-cols-md-3 g-4 container">` + html + `</div><br>`
-document.body.insertAdjacentHTML("beforeend", html)
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 
 });
 
 }
+
+
+
 
 func_economictimes()
 
