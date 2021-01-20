@@ -164,33 +164,6 @@ func_cnbc()
 
 function func_cnbc(){
 var html = ``;
-$.get(CORS_PROXY + 'https://www.cnbc.com/id/10000664/device/rss/rss.html', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           <div class="col">
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>CNBC</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
   
 $.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
@@ -224,11 +197,9 @@ document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_yahoo()  
 });
 
-});
-
-
 
 }
+
 
 
 
@@ -303,11 +274,114 @@ $.get(CORS_PROXY + 'https://news.bitcoin.com/feed/', function (data) {
     });
 
 document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-func_telegraph()    
+func_seekingalpha()    
 });
 
 }
 
+
+
+
+
+
+
+function func_seekingalpha(){
+var html = ``;
+$.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/BTC-USD.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Seeking Alpha</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+  
+$.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/ETH-USD.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Seeking Alpha</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+
+$.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/XRP-USD.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Seeking Alpha</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html) 
+func_telegraph()  
+});
+
+});
+
+});
+
+
+}
 
 
 
