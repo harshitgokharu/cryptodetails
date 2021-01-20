@@ -45,8 +45,16 @@
        </div>
      </nav>
 
-     
      <br>
+
+     <div class="d-flex justify-content-center align-items-center">
+     <div class="spinner-border text-secondary" role="status">
+        <span class="sr-only"></span>
+     </div>   
+     </div>  
+
+     <br>
+
 
      <div class="row row-cols-1 row-cols-md-3 g-4 container">
      </div>
@@ -973,15 +981,15 @@ $.get(CORS_PROXY + 'https://techcrunch.com/feed/', function (data) {
     });
 
 document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
+$(".spinner-border").remove()
 
 });
 
 }
 
 
-
-
 func_economictimes()
+
 
 </script>
 
