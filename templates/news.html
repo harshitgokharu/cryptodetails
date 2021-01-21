@@ -877,7 +877,7 @@ func_hindustantimes()
 
 function func_hindustantimes(){
 var html = ``;
-$.get(CORS_PROXY + 'https://api.hindustantimes.com/feeds/rss/business/rssfeed.xml', function (data) {
+$.get(CORS_PROXY + 'https://tech.hindustantimes.com/rss/tech/news', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
