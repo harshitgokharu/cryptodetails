@@ -63,7 +63,7 @@ def ref():
     plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
     plt.legend(loc=0, prop={'size': 60})
     
-    plt.savefig('static/images/crypto_perc.png')
+    #plt.savefig('static/images/crypto_perc.png')
 
 
     global btc_mean
