@@ -202,6 +202,87 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', funct
     });
 
 document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html) 
+func_thesun()  
+});
+
+
+}
+
+
+
+
+function func_thesun(){
+var html = ``;
+  
+$.get(CORS_PROXY + 'https://www.thesun.co.uk/tech/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>The Sun</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html) 
+func_aljazeera()  
+});
+
+
+}
+
+
+
+function func_aljazeera(){
+var html = ``;
+  
+$.get(CORS_PROXY + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Al Jazeera</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html) 
 func_yahoo()  
 });
 
@@ -786,8 +867,39 @@ $.get(CORS_PROXY + 'https://www.ft.com/?format=rss', function (data) {
       }
     });
 
+
+$.get(CORS_PROXY + 'https://www.ft.com/bitcoin?format=rss', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+     
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           <div class="col">
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Financial Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
 document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 func_ndtv()    
+
+});
 });
 
 }
