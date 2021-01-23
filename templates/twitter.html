@@ -514,6 +514,7 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/tyler', function (data) {
     });
 
 document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
+addScript ("https://platform.twitter.com/widgets.js");
 });
 
 }
@@ -522,6 +523,24 @@ document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
 
 
 func_chamath()
+
+</script>
+    
+    
+<script>
+
+function addScript( src ) {
+  var s = document.createElement( 'script' );
+  s.setAttribute( 'src', src );
+  s.setAttribute( 'async', "" );
+
+  elements = document.querySelectorAll('.card');
+
+  elements.forEach((currentValue, index, arr) => {
+        arr[index].appendChild( s );
+  })
+
+}
 
 </script>
 
@@ -549,9 +568,6 @@ func_chamath()
      </div>
 
 
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8">
- twttr.widgets.load()
-</script>
 
 </body>
 
