@@ -514,7 +514,6 @@ $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/tyler', function (data) {
     });
 
 document.getElementsByClassName("row")[0].insertAdjacentHTML("beforeend", html)
-
 addScript ("https://platform.twitter.com/widgets.js");
 });
 
@@ -542,6 +541,11 @@ function addScript( src ) {
         arr[index].appendChild( s.cloneNode(true) );
   })
 
+
+setTimeout(function() {   
+   $(".spinner-border").remove();
+}, 15000);
+
 }
 
 </script>
@@ -567,8 +571,15 @@ function addScript( src ) {
          </div>
        </div>
      </nav>
-     
+
      <br>
+ 
+     <div class="d-flex justify-content-center align-items-center">
+     <div class="spinner-border text-secondary" role="status">
+        <span class="sr-only"></span>
+     </div>   
+     </div> 
+     
      <div class="row row-cols-1 row-cols-md-3 g-4 container">
      </div>
 
