@@ -117,7 +117,8 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/stocks/rssfeeds
               
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <!-- <img src="${el.find("image").text()}" class="card-img-top" alt="..."> -->
+                  <p class="card-text">${el.find("description").text().split("</a>").pop().split('</description>')[0]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Economic Times</b></small>
@@ -145,7 +146,8 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/expert-view/rss
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <!-- <img src="${el.find("image").text()}" class="card-img-top" alt="..."> -->
+                  <p class="card-text">${el.find("description").text().split("</a>").pop().split('</description>')[0]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Economic Times</b></small>
@@ -158,11 +160,54 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/expert-view/rss
     });
   
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_cnbc()  
+func_cryptonews()  
 });
 
 });
 
+
+
+}
+
+
+
+
+
+function func_cryptonews(){
+var html = ``;
+  
+$.get(CORS_PROXY + 'https://cryptonews.com/news/feed', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find("enclosure").attr("url")}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Cryptonews</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_thedailymail()  
+});
 
 
 }
@@ -188,7 +233,7 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/10000664/device/rss/rss.html', funct
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>CNBC</b></small>
@@ -217,7 +262,7 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', funct
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>CNBC</b></small>
@@ -246,7 +291,67 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/100003114/device/rss/rss.html', func
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CNBC</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+
+
+$.get(CORS_PROXY + 'https://www.cnbc.com/id/100727362/device/rss/rss.html', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
                
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CNBC</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+
+
+$.get(CORS_PROXY + 'https://www.cnbc.com/id/10001147/device/rss/rss.html', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>CNBC</b></small>
@@ -260,6 +365,8 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/100003114/device/rss/rss.html', func
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_thesun()  
+});
+});
 });
 });
 });
@@ -289,7 +396,8 @@ $.get(CORS_PROXY + 'https://www.thesun.co.uk/tech/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <!-- <img src="${el.find("img").attr("src")}" class="card-img-top" alt="..."> -->
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>The Sun</b></small>
@@ -328,7 +436,8 @@ $.get(CORS_PROXY + 'https://www.dailymail.co.uk/money/index.rss', function (data
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>The Daily Mail</b></small>
@@ -368,7 +477,7 @@ $.get(CORS_PROXY + 'https://www.aljazeera.com/xml/rss/all.xml', function (data) 
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Al Jazeera</b></small>
@@ -407,7 +516,7 @@ $.get(CORS_PROXY + 'https://finance.yahoo.com/news/rss', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Yahoo News</b></small>
@@ -448,7 +557,8 @@ $.get(CORS_PROXY + 'https://www.forbes.com/crypto-blockchain/feed2/', function (
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Forbes</b></small>
@@ -477,7 +587,8 @@ $.get(CORS_PROXY + 'https://www.forbes.com/investing/feed2/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Forbes</b></small>
@@ -506,7 +617,8 @@ $.get(CORS_PROXY + 'https://www.forbes.com/markets/feed2/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Forbes</b></small>
@@ -546,7 +658,7 @@ $.get(CORS_PROXY + 'https://www.fool.com/a/feeds/foolwatch?format=rss2&id=foolwa
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>The Motley Fool</b></small>
@@ -575,7 +687,7 @@ $.get(CORS_PROXY + 'https://www.fool.ca/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("<p>")[1].split('</p>')[0]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>The Motley Fool</b></small>
@@ -616,7 +728,7 @@ $.get(CORS_PROXY + 'https://news.bitcoin.com/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Bitcoin.com</b></small>
@@ -758,7 +870,7 @@ $.get(CORS_PROXY + 'https://www.telegraph.co.uk/news/rss.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('enclosure').attr('url')}" class="card-img-top" alt="...">
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Telegraph</b></small>
@@ -786,7 +898,7 @@ $.get(CORS_PROXY + 'https://www.telegraph.co.uk/technology/rss.xml', function (d
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('enclosure').attr('url')}" class="card-img-top" alt="...">
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Telegraph</b></small>
@@ -829,7 +941,8 @@ $.get(CORS_PROXY + 'https://nypost.com/tech/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('enclosure').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>NY Post</b></small>
@@ -857,7 +970,8 @@ $.get(CORS_PROXY + 'https://nypost.com/business/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('enclosure').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>NY Post</b></small>
@@ -898,7 +1012,7 @@ $.get(CORS_PROXY + 'https://markets.businessinsider.com/rss/news', function (dat
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("&gt;").pop()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Business Insider</b></small>
@@ -935,7 +1049,7 @@ $.get(CORS_PROXY + 'https://www.express.co.uk/latest/cryptocurrency/rss', functi
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("<br /><br />")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Daily Express</b></small>
@@ -974,7 +1088,7 @@ $.get(CORS_PROXY + 'https://www.coindesk.com/feed', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Coindesk</b></small>
@@ -1013,7 +1127,8 @@ $.get(CORS_PROXY + 'https://www.wired.co.uk/rss/article', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Wired</b></small>
@@ -1053,7 +1168,8 @@ $.get(CORS_PROXY + 'https://www.mirror.co.uk/money/?service=rss', function (data
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('enclosure').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Mirror</b></small>
@@ -1089,7 +1205,7 @@ $.get(CORS_PROXY + 'https://www.ft.com/?format=rss', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Financial Times</b></small>
@@ -1118,7 +1234,7 @@ $.get(CORS_PROXY + 'https://www.ft.com/bitcoin?format=rss', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Financial Times</b></small>
@@ -1147,7 +1263,7 @@ $.get(CORS_PROXY + 'https://www.ft.com/opinion?format=rss', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Financial Times</b></small>
@@ -1191,7 +1307,7 @@ $.get(CORS_PROXY + 'https://gadgets.ndtv.com/rss/internet/feeds', function (data
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>NDTV</b></small>
@@ -1214,11 +1330,10 @@ func_nytimes()
 
 function func_nytimes(){
 var html = ``;
-$.get(CORS_PROXY + 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml ', function (data) {
+$.get(CORS_PROXY + 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
-     
-       
+         
 
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
@@ -1230,7 +1345,7 @@ $.get(CORS_PROXY + 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml 
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>NY Times</b></small>
@@ -1257,7 +1372,6 @@ $.get(CORS_PROXY + 'https://tech.hindustantimes.com/rss/tech/news', function (da
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
-     
 
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
@@ -1269,7 +1383,8 @@ $.get(CORS_PROXY + 'https://tech.hindustantimes.com/rss/tech/news', function (da
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Hindustan Times</b></small>
@@ -1297,7 +1412,6 @@ $.get(CORS_PROXY + 'https://www.moneycontrol.com/rss/business.xml', function (da
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
 
-      
 
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
@@ -1337,7 +1451,6 @@ $.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data
         var el = $(this);
      
 
-
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
@@ -1347,7 +1460,8 @@ $.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text().split("<p>")[1].split("</p>")[0]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>TheGuardian</b></small>
@@ -1359,78 +1473,12 @@ $.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data
       }
     });
 
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_techcrunch()    
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_news18()    
 });
 
 }
 
-
-
-function func_techcrunch(){
-var html = ``;
-$.get(CORS_PROXY + 'https://techcrunch.com/fundings-exits/feed/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>TechCrunch</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-    
-});
-
-$.get(CORS_PROXY + 'https://techcrunch.com/feed/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>TechCrunch</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_news18()  
-
-});
-
-}
 
 
 
@@ -1439,10 +1487,9 @@ var html = ``;
 $.get(CORS_PROXY + 'https://www.news18.com/rss/buzz.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
-     
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
+
         html += `
            
              <a href="${el.find("link").text()}" target="_blank">
@@ -1450,7 +1497,7 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/buzz.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>News18</b></small>
@@ -1469,7 +1516,7 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/business.xml', function (data) {
 
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
+     
         html += `
            
              <a href="${el.find("link").text()}" target="_blank">
@@ -1477,7 +1524,7 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/business.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>News18</b></small>
@@ -1496,7 +1543,7 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
 
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
+       
         html += `
            
              <a href="${el.find("link").text()}" target="_blank">
@@ -1504,7 +1551,7 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-               
+                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>News18</b></small>
@@ -1517,7 +1564,8 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_businessstandard()    
+$(".spinner-border").remove()    
+console.log("end")
 });
 });
 });
@@ -1525,70 +1573,6 @@ func_businessstandard()
 }
 
 
-
-
-function func_businessstandard(){
-var html = ``;
-$.get(CORS_PROXY + 'https://www.business-standard.com/rss/international-116.rss', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Business Standard</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-$.get(CORS_PROXY + 'https://www.business-standard.com/rss/markets-cryptocurrency-10622.rss', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Business Standard</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-$(".spinner-border").remove()  
-});
-});
-
-}
 
 
 func_economictimes()
