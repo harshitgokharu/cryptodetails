@@ -14,6 +14,10 @@
          text-decoration: none;
        }
 
+      a, a:hover{
+         text-decoration:none;
+      }
+
       .card{
          color:black;
        }
@@ -601,38 +605,8 @@ $.get(CORS_PROXY + 'https://www.forbes.com/investing/feed2/', function (data) {
     });
 
 
-$.get(CORS_PROXY + 'https://www.forbes.com/markets/feed2/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-       
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Forbes</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)  
 func_motleyfool()  
-});
 });
 });
 
@@ -782,33 +756,6 @@ $.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/BTC-USD.xml', funct
       }
     });
   
-$.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/ETH-USD.xml', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Seeking Alpha</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
 
 
 $.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/XRP-USD.xml', function (data) {
@@ -842,10 +789,8 @@ $.get(CORS_PROXY + 'https://seekingalpha.com/api/sa/combined/XRP-USD.xml', funct
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_telegraph()  
 });
-
 });
 
-});
 
 
 }
@@ -1474,6 +1419,146 @@ $.get(CORS_PROXY + 'https://www.theguardian.com/uk/business/rss', function (data
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_cnet()    
+});
+
+}
+
+
+function func_cnet(){
+var html = ``;
+$.get(CORS_PROXY + 'https://www.cnet.com/rss/news/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('media\\:thumbnail, thumbnail').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CNET</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_huffpost()    
+});
+
+}
+
+
+function func_huffpost(){
+var html = ``;
+$.get(CORS_PROXY + 'https://www.huffpost.com/section/business/feed', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('enclosure').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>HuffPost</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_benzinga()    
+});
+
+}
+
+
+function func_benzinga(){
+var html = ``;
+$.get(CORS_PROXY + 'http://feeds.feedburner.com/benzinga/TSDq', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Benzinga</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_blockworks()    
+});
+
+}
+
+
+function func_blockworks(){
+var html = ``;
+$.get(CORS_PROXY + 'https://blockworks.co/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text().split("<p>")[1].split("</p>")[0]}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Blockworks</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_news18()    
 });
 
@@ -1566,6 +1651,8 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
 $(".spinner-border").remove()    
 console.log("end")
+console.log($('.card-body').length)
+func_remimg()
 });
 });
 });
@@ -1577,6 +1664,23 @@ console.log("end")
 
 func_economictimes()
 
+</script>
+
+
+
+
+<script>
+
+function func_remimg(){
+elements = document.querySelectorAll('.card-img-top');
+
+elements.forEach((currentValue, index, arr) => {
+        if(arr[index].getAttribute("src") === "undefined"){
+          arr[index].remove();
+        }
+}
+);
+}
 
 </script>
 
