@@ -210,7 +210,7 @@ $.get(CORS_PROXY + 'https://cryptonews.com/news/feed', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_thedailymail()  
+func_cnbc()  
 });
 
 
@@ -250,129 +250,8 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/10000664/device/rss/rss.html', funct
     });
 
 
-$.get(CORS_PROXY + 'https://www.cnbc.com/id/19854910/device/rss/rss.html', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>CNBC</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-
-$.get(CORS_PROXY + 'https://www.cnbc.com/id/100003114/device/rss/rss.html', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>CNBC</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-
-
-$.get(CORS_PROXY + 'https://www.cnbc.com/id/100727362/device/rss/rss.html', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>CNBC</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-
-
-$.get(CORS_PROXY + 'https://www.cnbc.com/id/10001147/device/rss/rss.html', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>CNBC</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_thesun()  
-});
-});
-});
-});
 });
 
 
