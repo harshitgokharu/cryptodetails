@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request,  render_template
 #import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -66,6 +66,30 @@ def ref():
     plt.savefig('static/images/crypto_perc.png')
 
 
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['BTC'], label="BTC in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/btc.png')
+
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['ETH'], label="ETH in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/eth.png')
+
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['XRP'], label="XRP in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/xrp.png')
+
     global btc_mean
     global eth_mean
     global xrp_mean
@@ -90,6 +114,7 @@ def ref():
 def home():
     ref()
     return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png')
+
 @app.route("/twitter")
 def twitter():
   return render_template("twitter.html")
@@ -97,6 +122,79 @@ def twitter():
 @app.route("/news")
 def news():
   return render_template("news.html")
+
+@app.route('/invretresult', methods=['GET', 'POST'])
+def invretresult():
+
+    
+    
+    start_date = str(datetime.strptime(request.form.get('start_date'), '%Y-%m-%d').strftime('%d/%m/%Y'))
+    end_date = str(datetime.strptime(request.form.get('end_date'), '%Y-%m-%d').strftime('%d/%m/%Y'))
+    daily_amt = float(request.form.get('daily_amt'))
+    crypto_name = request.form.get('crypto_name')
+
+
+     
+    
+    data_bitcoin = investpy.get_crypto_historical_data(crypto='bitcoin', from_date=start_date, to_date=end_date)
+    data_bitcoin.rename(columns={"Close": "Price"},inplace=True)
+    data_bitcoin = data_bitcoin.iloc[::-1]
+    
+    data_comb = pd.DataFrame(index= data_bitcoin.index)
+    
+    data_comb["BTC"] = data_bitcoin['Price']
+
+    data_ether = investpy.get_crypto_historical_data(crypto='ethereum', from_date=start_date, to_date=end_date)
+    data_ether.rename(columns={"Close": "Price"},inplace=True)
+    data_ether = data_ether.iloc[::-1]
+    data_comb["ETH"] = data_ether['Price']
+    
+    data_xrp = investpy.get_crypto_historical_data(crypto='xrp', from_date=start_date, to_date=end_date)
+    data_xrp.rename(columns={"Close": "Price"},inplace=True)
+    data_xrp = data_xrp.iloc[::-1]
+    data_comb["XRP"] = data_xrp['Price']
+        
+
+    data_usdinr = investpy.get_currency_cross_historical_data(currency_cross='USD/INR', from_date=start_date, to_date=end_date)
+    data_usdinr.rename(columns={"Close": "USDINR"},inplace=True)
+    data_usdinr = data_usdinr.iloc[::-1]
+    data_comb["USDINR"] = data_usdinr['USDINR']
+    
+    data_comb.fillna(method='bfill', inplace=True)
+    data_comb.fillna(method='ffill', inplace=True)
+
+    data_comb = data_comb.assign(Qty_BTC = lambda x:((1/(x["BTC"]*x["USDINR"]))* daily_amt))
+    data_comb = data_comb.assign(Qty_ETH = lambda x:((1/(x["ETH"]*x["USDINR"]))* daily_amt))
+    data_comb = data_comb.assign(Qty_XRP = lambda x:((1/(x["XRP"]*x["USDINR"]))* daily_amt))
+
+
+    if(crypto_name == "BTC"):
+            crypto_qty= data_comb["Qty_BTC"].sum() 
+            crypto_ret= data_comb["Qty_BTC"].sum() * data_comb["BTC"][0] * data_comb["USDINR"][0]
+
+    if(crypto_name == "ETH"):
+            crypto_qty= data_comb["Qty_ETH"].sum() 
+            crypto_ret= data_comb["Qty_ETH"].sum() * data_comb["ETH"][0] * data_comb["USDINR"][0]
+    
+    if(crypto_name == "XRP"):
+            crypto_qty= data_comb["Qty_XRP"].sum()
+            crypto_ret= data_comb["Qty_XRP"].sum() * data_comb["XRP"][0] * data_comb["USDINR"][0]
+
+    total_invest = len(data_comb) * daily_amt
+    
+    daily_amt = "Investment each day: ₹ "+ str(daily_amt)
+    duration = "Duration: " + start_date + " to " + end_date
+    total_invest = "Total Investment: ₹ "+ str(total_invest)
+    crypto_ret = "Current Amount: ₹ "+ str(crypto_ret)
+    crypto_qty = "Current Quantity: " + str(crypto_qty) 
+    
+    return render_template('invret.html',crypto_name = crypto_name, daily_amt = daily_amt, duration = duration,  crypto_ret= crypto_ret , crypto_qty=crypto_qty, total_invest=total_invest)
+
+
+
+@app.route('/invret')
+def invret():
+    return render_template('invret.html')
 
 
 
