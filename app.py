@@ -66,6 +66,30 @@ def ref():
     plt.savefig('static/images/crypto_perc.png')
 
 
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['BTC'], label="BTC in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/btc.png')
+
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['ETH'], label="ETH in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/eth.png')
+
+    plt.figure(figsize=(100, 40))
+    plt.plot(data_comb.index,data_comb['XRP'], label="XRP in $",linewidth=6.0)
+    plt.yticks(fontsize=50)
+    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
+    plt.legend(loc=0, prop={'size': 60})
+    
+    plt.savefig('static/images/xrp.png')
+
     global btc_mean
     global eth_mean
     global xrp_mean
@@ -89,7 +113,7 @@ def ref():
 @app.route('/')
 def home():
     ref()
-    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png')
+    return render_template('index.html',btc_mean= btc_mean, eth_mean= eth_mean, xrp_mean= xrp_mean, btc_today= btc_today, eth_today= eth_today, xrp_today= xrp_today, url1='../static/images/crypto_perc.png', url2='../static/images/btc.png', url3='../static/images/eth.png', url4='../static/images/xrp.png')
 
 @app.route("/twitter")
 def twitter():
@@ -129,6 +153,11 @@ def invretresult():
     data_xrp.rename(columns={"Close": "Price"},inplace=True)
     data_xrp = data_xrp.iloc[::-1]
     data_comb["XRP"] = data_xrp['Price']
+    
+    data_doge = investpy.get_crypto_historical_data(crypto='dogecoin', from_date=start_date, to_date=end_date)
+    data_doge.rename(columns={"Close": "Price"},inplace=True)
+    data_doge = data_doge.iloc[::-1]
+    data_comb["DOGE"] = data_doge['Price']
         
 
     data_usdinr = investpy.get_currency_cross_historical_data(currency_cross='USD/INR', from_date=start_date, to_date=end_date)
@@ -142,6 +171,7 @@ def invretresult():
     data_comb = data_comb.assign(Qty_BTC = lambda x:((1/(x["BTC"]*x["USDINR"]))* daily_amt))
     data_comb = data_comb.assign(Qty_ETH = lambda x:((1/(x["ETH"]*x["USDINR"]))* daily_amt))
     data_comb = data_comb.assign(Qty_XRP = lambda x:((1/(x["XRP"]*x["USDINR"]))* daily_amt))
+    data_comb = data_comb.assign(Qty_DOGE = lambda x:((1/(x["DOGE"]*x["USDINR"]))* daily_amt))
 
 
     if(crypto_name == "BTC"):
@@ -155,6 +185,10 @@ def invretresult():
     if(crypto_name == "XRP"):
             crypto_qty= data_comb["Qty_XRP"].sum()
             crypto_ret= data_comb["Qty_XRP"].sum() * data_comb["XRP"][0] * data_comb["USDINR"][0]
+            
+    if(crypto_name == "DOGE"):
+            crypto_qty= data_comb["Qty_DOGE"].sum()
+            crypto_ret= data_comb["Qty_DOGE"].sum() * data_comb["DOGE"][0] * data_comb["USDINR"][0]
 
     total_invest = len(data_comb) * daily_amt
     
