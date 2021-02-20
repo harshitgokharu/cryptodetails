@@ -13,23 +13,6 @@
   </head>
   <body>
     
-    
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-       <div class="container-fluid">
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-           <span class="navbar-toggler-icon"></span>
-         </button>
-         <div class="collapse navbar-collapse" id="navbarNav">
-           <div class="navbar-nav">
-             <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter Wall</a>
-             <a class="nav-link" href="{{ url_for('news') }}">News Wall</a>
-             <a class="nav-link active" aria-current="page" href="#">Investment Calculator</a>
-           </div>
-         </div>
-       </div>
-     </nav>
      
      
      <center>
@@ -37,25 +20,26 @@
      
      
      <!-- Main Input For Receiving Query to our ML -->
-     <form action="{{ url_for('invretresult')}}" method="post">
+     <form action="{{ url_for('invretresult')}}" id="formdetails" method="post">
      
         <label for="crypto_name">Cryptocurrency:</label>
         <select id="crypto_name" name="crypto_name" onchange= cryptochange()>
           <option value="BTC">Bitcoin</option>
           <option value="ETH">Ethereum</option>
           <option value="XRP">Ripple XRP</option>
+          <option value="DOGE">Dogecoin</option>
         </select>
       
         <br>
       
         <label for="start">Start date:</label>
-        <input type="date" id="start_date" name="start_date" value= "2009-01-03" min= "2009-01-03" required>
+        <input type="date" id="start_date" name="start_date" value= "2010-07-18" min= "2010-07-18" required>
         <br>
         <label for="end_date">End date:</label>
         <input type="date" id="end_date" name="end_date"  required>
         <br>
         <label for="daily_amt">Daily Investment ₹:</label>
-    	<input type="number" name="daily_amt" min="0" step="1" oninput="validity.valid||(value='');" required="required" />
+    	<input type="number" name="daily_amt" min="0" step="1" required="required" />
     	<br>
     	<br>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -76,6 +60,25 @@
      <script>
       
 
+     document.getElementById('formdetails').addEventListener('submit', function(event){
+
+       start = new Date(document.getElementById("start_date").value)
+       end = new Date(document.getElementById("end_date").value)
+       
+       if(start >= end){
+          event.preventDefault();
+          alert("Start Date should be less than End Date");
+          return false;
+      }
+     });
+
+
+
+
+
+
+
+
      
      var d = new Date(),
         month = '' + (d.getMonth() + 1),
@@ -91,21 +94,25 @@
      
      
      
-     
-     document.getElementById("end_date").setAttribute("max", [year, month, day].join('-'));
+     document.getElementById("start_date").setAttribute("max", [year, month, day-2].join('-'));
+     document.getElementById("end_date").setAttribute("max", [year, month, day-1].join('-'));
      
      function cryptochange(){
       if(document.getElementById("crypto_name").value == "BTC"){
-         document.getElementById("start_date").setAttribute("min", "2009-01-03");
-         document.getElementById("start_date").setAttribute("value", "2009-01-03");
+         document.getElementById("start_date").setAttribute("min", "2010-07-18");
+         document.getElementById("start_date").setAttribute("value", "2010-07-18");
       }
       if(document.getElementById("crypto_name").value == "ETH"){
-         document.getElementById("start_date").setAttribute("min", "2015-06-30");
-         document.getElementById("start_date").setAttribute("value", "2015-06-30");
+         document.getElementById("start_date").setAttribute("min", "2016-03-10");
+         document.getElementById("start_date").setAttribute("value", "2016-03-10");
       }
       if(document.getElementById("crypto_name").value == "XRP"){
          document.getElementById("start_date").setAttribute("min", "2015-01-22");
          document.getElementById("start_date").setAttribute("value", "2015-01-22");
+      }
+      if(document.getElementById("crypto_name").value == "DOGE"){
+         document.getElementById("start_date").setAttribute("min", "2017-06-01");
+         document.getElementById("start_date").setAttribute("value", "2017-06-01");
       }
     }
      </script>
