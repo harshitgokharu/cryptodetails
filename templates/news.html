@@ -897,7 +897,7 @@ func_coindesk()
 
 function func_coindesk(){
 var html = ``;
-$.get(CORS_PROXY + 'https://www.coindesk.com/feed', function (data) {
+$.get(CORS_PROXY + 'https://www.investing.com/rss/news_301.rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
