@@ -163,11 +163,40 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/expert-view/rss
       `;
       }
     });
+
+$.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/ipos/fpos/rssfeeds/14655708.cms', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <!-- <img src="${el.find("image").text()}" class="card-img-top" alt="..."> -->
+                  <p class="card-text">${el.find("description").text().split("</a>").pop().split('</description>')[0]}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Economic Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
   
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
 func_cryptonews()  
 });
-
+});
 });
 
 
@@ -250,9 +279,38 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/10000664/device/rss/rss.html', funct
       }
     });
 
+$.get(CORS_PROXY + 'https://www.cnbc.com/id/100003114/device/rss/rss.html', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CNBC</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_thesun()  
+});
 });
 
 
@@ -403,7 +461,7 @@ $.get(CORS_PROXY + 'https://finance.yahoo.com/news/rss', function (data) {
                   <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
                </div>
                <div class="card-footer">
-                 <small class="text-muted"><b>Yahoo News</b></small>
+                 <small class="text-muted"><b>via Yahoo News</b></small>
                </div>
              </div>
              </a>
@@ -455,7 +513,7 @@ $.get(CORS_PROXY + 'https://www.forbes.com/crypto-blockchain/feed2/', function (
     });
 
 
-$.get(CORS_PROXY + 'https://www.forbes.com/investing/feed2/', function (data) {
+$.get(CORS_PROXY + 'https://www.forbes.com/markets/feed2/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
@@ -837,7 +895,6 @@ $.get(CORS_PROXY + 'https://markets.businessinsider.com/rss/news', function (dat
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("&gt;").pop()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Business Insider</b></small>
@@ -878,45 +935,6 @@ $.get(CORS_PROXY + 'https://www.express.co.uk/latest/cryptocurrency/rss', functi
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Daily Express</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_wired()    
-});
-
-}
-
-
-
-
-function func_coindesk(){
-var html = ``;
-$.get(CORS_PROXY + 'https://www.investing.com/rss/news_301.rss', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-       
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Coindesk</b></small>
                </div>
              </div>
              </a>
@@ -1136,7 +1154,35 @@ func_hindustantimes()
 
 function func_hindustantimes(){
 var html = ``;
-$.get(CORS_PROXY + 'https://tech.hindustantimes.com/rss/tech/news', function (data) {
+$.get(CORS_PROXY + 'https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="..."> 
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Hindustan Times</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+$.get(CORS_PROXY + 'https://www.hindustantimes.com/feeds/rss/opinion/rssfeed.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
@@ -1167,9 +1213,9 @@ $.get(CORS_PROXY + 'https://tech.hindustantimes.com/rss/tech/news', function (da
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
 func_moneycontrol()    
 });
+});
 
 }
-
 
 
 
@@ -1360,7 +1406,7 @@ $.get(CORS_PROXY + 'https://blockworks.co/feed/', function (data) {
         var el = $(this);
      
 
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
         
         html += `
            
@@ -1373,6 +1419,234 @@ $.get(CORS_PROXY + 'https://blockworks.co/feed/', function (data) {
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Blockworks</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_thewallstreetjournal()    
+});
+
+}
+
+
+
+function func_thewallstreetjournal(){
+var html = ``;
+$.get(CORS_PROXY + 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>The Wall Street Journal</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_cointelegraph()    
+});
+
+}
+
+
+
+
+function func_cointelegraph(){
+var html = ``;
+$.get(CORS_PROXY + 'https://cointelegraph.com/rss', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text().split("<p>")[1].split("</p>")[0]}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Cointelegraph</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_bitcoinmagazine()    
+});
+
+}
+
+
+
+
+
+
+function func_bitcoinmagazine(){
+var html = ``;
+$.get(CORS_PROXY + 'https://bitcoinmagazine.com/feed', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text().split("<p>")[1].split("</p>")[0]}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Bitcoin Magazine</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_marketwatch()    
+});
+
+}
+
+
+
+
+
+function func_marketwatch(){
+var html = ``;
+$.get(CORS_PROXY + 'http://feeds.marketwatch.com/marketwatch/topstories/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Market Watch</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_theprint()    
+});
+
+}
+
+
+
+
+
+function func_theprint(){
+var html = ``;
+$.get(CORS_PROXY + 'https://theprint.in/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>The Print</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_timesofindia()    
+});
+
+}
+
+
+
+
+
+
+
+function func_timesofindia(){
+var html = ``;
+$.get(CORS_PROXY + 'https://timesofindia.indiatimes.com/rssfeeds/1898055.cms', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+
+        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text().split("</a>").pop()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Times of India</b></small>
                </div>
              </div>
              </a>
@@ -1473,8 +1747,9 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
 $(".spinner-border").remove()    
-console.log("end")
+
 console.log($('.card-body').length)
+console.log("end")
 func_remimg()
 });
 });
