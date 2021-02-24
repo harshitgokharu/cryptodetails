@@ -74,22 +74,6 @@ def ref():
     
     plt.savefig('static/images/btc.png')
 
-    plt.figure(figsize=(100, 40))
-    plt.plot(data_comb.index,data_comb['ETH'], label="ETH in $",linewidth=6.0)
-    plt.yticks(fontsize=50)
-    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
-    plt.legend(loc=0, prop={'size': 60})
-    
-    plt.savefig('static/images/eth.png')
-
-    plt.figure(figsize=(100, 40))
-    plt.plot(data_comb.index,data_comb['XRP'], label="XRP in $",linewidth=6.0)
-    plt.yticks(fontsize=50)
-    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
-    plt.legend(loc=0, prop={'size': 60})
-    
-    plt.savefig('static/images/xrp.png')
-
     global btc_mean
     global eth_mean
     global xrp_mean
