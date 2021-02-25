@@ -64,15 +64,7 @@ def ref():
     plt.legend(loc=0, prop={'size': 60})
     
     plt.savefig('static/images/crypto_perc.png')
-
-
-    plt.figure(figsize=(100, 40))
-    plt.plot(data_comb.index,data_comb['BTC'], label="BTC in $",linewidth=6.0)
-    plt.yticks(fontsize=50)
-    plt.xticks(dates_list,dates_list_label,fontsize=50,rotation=40)
-    plt.legend(loc=0, prop={'size': 60})
     
-    plt.savefig('static/images/btc.png')
 
     global btc_mean
     global eth_mean
