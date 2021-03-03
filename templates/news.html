@@ -1528,7 +1528,7 @@ $.get(CORS_PROXY + 'https://bitcoinmagazine.com/feed', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("<p>")[1].split("</p>")[0]}</p>
+                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Bitcoin Magazine</b></small>
