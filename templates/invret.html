@@ -21,7 +21,7 @@
          <div class="collapse navbar-collapse" id="navbarNav">
            <div class="navbar-nav">
              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter Wall</a>
+             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter Wall</a> 
              <a class="nav-link"  href="{{ url_for('news') }}">News Wall</a>
              <a class="nav-link active" aria-current="page" href="#">Investment Calculator</a>
            </div>
@@ -95,21 +95,30 @@
 
      
      var d = new Date(),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
+        month = '' + (d.getMonth() + 1);
+        day = '' + d.getDate();
         year = d.getFullYear();
+        
+     console.log(month)
+     console.log(day)
 
-     if (month.length < 2) 
+     if (month.length < 9) 
         month = '0' + month;
-     if (day.length < 2) 
-        day = '0' + day;
+     if (day.length < 9) 
+        day = day - 1
+        day1 = '0' + day;
+        day = day - 1;
+        day2 = '0' + day;
+     
+     console.log(month)
+     console.log(day)
 
  
      
      
      
-     document.getElementById("start_date").setAttribute("max", [year, month, day-2].join('-'));
-     document.getElementById("end_date").setAttribute("max", [year, month, day-1].join('-'));
+     document.getElementById("start_date").setAttribute("max", [year, month, day2].join('-'));
+     document.getElementById("end_date").setAttribute("max", [year, month, day1].join('-'));
      
      function cryptochange(){
       if(document.getElementById("crypto_name").value == "BTC"){
