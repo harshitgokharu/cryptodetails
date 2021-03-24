@@ -105,6 +105,48 @@ var dtcmp = [today,yesterday, tomorrow,itoday,iyesterday,itomorrow]
 
 
 
+
+function func_cryptobriefing(){
+var html = ``;
+  
+$.get(CORS_PROXY + 'https://cryptobriefing.com/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Crypto Briefing</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_economictimes()  
+});
+
+
+}
+
+
+
+
 function func_economictimes(){
 var html = ``;
 $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms', function (data) {
@@ -122,7 +164,6 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/stocks/rssfeeds
               
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <!-- <img src="${el.find("image").text()}" class="card-img-top" alt="..."> -->
                   <p class="card-text">${el.find("description").text().split("</a>").pop().split('</description>')[0]}</p>
                </div>
                <div class="card-footer">
@@ -151,7 +192,6 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/expert-view/rss
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <!-- <img src="${el.find("image").text()}" class="card-img-top" alt="..."> -->
                   <p class="card-text">${el.find("description").text().split("</a>").pop().split('</description>')[0]}</p>
                </div>
                <div class="card-footer">
@@ -180,7 +220,6 @@ $.get(CORS_PROXY + 'https://economictimes.indiatimes.com/markets/ipos/fpos/rssfe
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <!-- <img src="${el.find("image").text()}" class="card-img-top" alt="..."> -->
                   <p class="card-text">${el.find("description").text().split("</a>").pop().split('</description>')[0]}</p>
                </div>
                <div class="card-footer">
@@ -338,7 +377,6 @@ $.get(CORS_PROXY + 'https://www.thesun.co.uk/tech/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <!-- <img src="${el.find("img").attr("src")}" class="card-img-top" alt="..."> -->
                   <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
@@ -1796,7 +1834,7 @@ func_remimg()
 
 
 
-func_economictimes()
+func_cryptobriefing()
 
 </script>
 
