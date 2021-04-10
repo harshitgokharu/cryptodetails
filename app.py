@@ -170,9 +170,9 @@ def invretresult():
     
     daily_amt = "Investment each day: ₹ "+ str(daily_amt)
     duration = "Duration: " + start_date + " to " + end_date
-    total_invest = "Total Investment: ₹ "+ str(total_invest)
-    crypto_ret = "Current Amount: ₹ "+ str(crypto_ret)
-    crypto_qty = "Current Quantity: " + str(crypto_qty) 
+    total_invest = "Total Investment: ₹ "+ str(total_invest)   "%.2f" % crypto_ret
+    crypto_ret = "Current Amount: ₹ "+ str("%.2f" % crypto_ret)
+    crypto_qty = "Current Quantity: " + str("%.2f" % crypto_qty) 
     
     return render_template('invret.html',crypto_name = crypto_name, daily_amt = daily_amt, duration = duration,  crypto_ret= crypto_ret , crypto_qty=crypto_qty, total_invest=total_invest)
 
