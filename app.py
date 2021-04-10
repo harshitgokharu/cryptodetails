@@ -170,7 +170,7 @@ def invretresult():
     
     daily_amt = "Investment each day: ₹ "+ str(daily_amt)
     duration = "Duration: " + start_date + " to " + end_date
-    total_invest = "Total Investment: ₹ "+ str(total_invest)   "%.2f" % crypto_ret
+    total_invest = "Total Investment: ₹ "+ str(total_invest)  
     crypto_ret = "Current Amount: ₹ "+ str("%.2f" % crypto_ret)
     crypto_qty = "Current Quantity: " + str("%.2f" % crypto_qty) 
     
