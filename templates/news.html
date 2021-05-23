@@ -82,31 +82,40 @@ const CORS_PROXY = "https://access-cors.herokuapp.com/"
 
 var strcmp = ["Bitcoin","bitcoin", "bitcoin","Bitcoin's","BTC","Ethereum","Ether","ETH", "Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto", "DeFi", "Decentralized", "decentralized"];
 
-
+var dt = new Date();
 
 var today = new Date()
-var yesterday = new Date(today)
-var tomorrow = new Date(today)
-yesterday.setDate(yesterday.getDate() - 1)
-tomorrow.setDate(tomorrow.getDate() + 1)
+today.setHours( dt.getHours() + 5 );
+today.setMinutes( dt.getMinutes() + 30 );
+
+var yesterday = new Date()
+yesterday.setHours( dt.getHours() - 4 );
 
 today = today.toUTCString().slice(0,17);
 yesterday = yesterday.toUTCString().slice(0,17);
-tomorrow = tomorrow.toUTCString().slice(0,17);
+
 
 
 var itoday = new Date()
-var iyesterday = new Date(itoday)
-var itomorrow = new Date(itoday)
-iyesterday.setDate(iyesterday.getDate() - 1)
-itomorrow.setDate(itomorrow.getDate() + 1)
+itoday.setHours( dt.getHours() + 5 );
+itoday.setMinutes( dt.getMinutes() + 30 );
+
+var iyesterday = new Date()
+iyesterday.setHours( dt.getHours() - 4 );
 
 itoday = itoday.toISOString().slice(0,10);
 iyesterday = iyesterday.toISOString().slice(0,10);
-itomorrow = itomorrow.toISOString().slice(0,10);
+console.log(iyesterday)
 
 
-var dtcmp = [today,yesterday, tomorrow,itoday,iyesterday,itomorrow]
+
+
+var dtcmp = [yesterday, today, iyesterday, itoday]
+
+
+
+
+
 
 
 
@@ -1746,7 +1755,78 @@ $.get(CORS_PROXY + 'https://ambcrypto.com/feed/', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_news18()    
+func_quartz()    
+});
+
+}
+
+
+
+
+
+
+function func_quartz(){
+var html = ``;
+$.get(CORS_PROXY + 'https://cms.qz.com/feed/topic/finance-and-economics/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+
+       
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Quartz</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+$.get(CORS_PROXY + 'https://cms.qz.com/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+       
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Quartz</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
+func_news18()   
+ 
+});   
 });
 
 }
