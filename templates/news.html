@@ -1719,7 +1719,7 @@ $.get(CORS_PROXY + 'https://timesofindia.indiatimes.com/rssfeeds/1898055.cms', f
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("</a>").pop()}</p>
+                  <p class="card-text">${el.find("description").text().split(" />").pop()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Times of India</b></small>
