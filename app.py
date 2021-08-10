@@ -112,7 +112,7 @@ def invretresult():
 
      
     
-    data_bitcoin = investpy.get_crypto_historical_data(crypto='bitcoin', from_date=start_date, to_date=end_date)
+    data_bitcoin = investpy.get_historical_data(commodity='gold', from_date=start_date, to_date=end_date)
     data_bitcoin.rename(columns={"Close": "Price"},inplace=True)
     data_bitcoin = data_bitcoin.iloc[::-1]
     
