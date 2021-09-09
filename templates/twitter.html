@@ -330,65 +330,6 @@ func_tyler()
 
 
 
-function func_mkbhd(){
-$.get(CORS_PROXY + 'https://rsshub.app/twitter/user/MKBHD', function (data) {
-    var html = ``;
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-
-    
-        var el = $(this);
- 
-
-
-        title = el.find("title").text()
-
-        
-        if(strcmp.some(v => title.includes(v)) && !lnkcmp.includes(el.find("link").text())){ 
-
-        lnkcmp.push(el.find("link").text())
-        
-        if(strcmp.some(v => el.find("description").text().includes("RT"))){
-        html += `
-
-        
-          <div class="card">
-            <small class="text-muted">Retweeted by <a href="https://twitter.com/MKBHD" target="_blank">@MKBHD</a></small>
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-       
-
-        `;
-        }
-        else{
-        html += `
-
-        
-          <div class="card">
-            <blockquote class="twitter-tweet">
-              <a href="${el.find("link").text()}"></a>
-            </blockquote>
-          </div>
-     
-
-        `;
-        }
-
-      }
-       
-
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_tyler()
-});
-
-}
-
-
-
-
 
 function func_tyler(){
 $.get(CORS_PROXY + 'https://rsshub.app/twitter/user/tyler', function (data) {
