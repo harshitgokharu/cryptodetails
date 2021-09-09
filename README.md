@@ -5,6 +5,7 @@ http://cryptodetail.herokuapp.com
 <br>
 <br>
 <li>Home page showing major cryptocurrencies price trend</li>
+<br>
 <p align="center">
   <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/home_page.png" height=80%, width=80%>
 </p>
