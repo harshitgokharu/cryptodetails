@@ -3,9 +3,10 @@ Visit the website here:
 http://cryptodetail.herokuapp.com
 
 <br>
+<br>
 <li>Home page showing major cryptocurrencies price trend</li>
 <p align="center">
-  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/home_page.png">
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/home_page.png" height=80%, width=80%>
 </p>
 <li>Then information like profile or subjects can be viewed</li>
 <p align="center">
