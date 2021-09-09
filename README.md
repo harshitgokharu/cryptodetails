@@ -9,7 +9,7 @@ http://cryptodetail.herokuapp.com
 </p>
 <li>Then information like profile or subjects can be viewed</li>
 <p align="center">
-  <img src="https://github.com/harshitgokharu/AttendanceManager/blob/master/demo/home_page.png?raw=true" height=282px, width=158px>
+  <img src="https://github.com/harshitgokharu/AttendanceManager/blob/master/demo/home_page.png?raw=true" height=80%, width=80%>
 </p>
 <li>The teacher can also view previous attendance</li>
 <p align="center">
