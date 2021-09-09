@@ -19,3 +19,14 @@ http://cryptodetail.herokuapp.com
 <p align="center">
   <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/news.PNG" height=80%, width=80%>
 </p>
+<li>Investment calculator can be used to calculate profit/loss if invested daily in retrospect</li>
+<br>
+<p align="center">
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/invest_calculator1.PNG" height=80%, width=80%>
+</p>
+<p align="center">
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/invest_calculator2.PNG" height=80%, width=80%>
+</p>
+<p align="center">
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/invest_calculator3.PNG" height=80%, width=80%>
+</p>
