@@ -4,23 +4,18 @@ http://cryptodetail.herokuapp.com
 
 <br>
 <br>
-<li>Home page showing major cryptocurrencies price trend</li>
+<li>Home page shows major cryptocurrencies price trend</li>
 <br>
 <p align="center">
   <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/home_page.png" height=80%, width=80%>
 </p>
-<li>Then information like profile or subjects can be viewed</li>
+<li>Twitter wall shows latest tweets regarding cryptocurrencies from popular personalities in crypto space</li>
+<br>
 <p align="center">
-  <img src="https://github.com/harshitgokharu/AttendanceManager/blob/master/demo/home_page.png?raw=true" height=80%, width=80%>
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/news.PNG" height=80%, width=80%>
 </p>
-<li>The teacher can also view previous attendance</li>
+<li>News wall shows latest news regarding cryptocurrencies from 30+ sources</li>
+<br>
 <p align="center">
-  <img src="https://github.com/harshitgokharu/AttendanceManager/blob/master/demo/menu.png?raw=true" height=282px, width=158px>
-</p>
-<li>The teacher can then select subject to mark the attendance</li>
-<p align="center">
-  <img src="https://github.com/harshitgokharu/AttendanceManager/blob/master/demo/take_attendance.png?raw=true" height=282px, width=158px></p>
-<li>Then according to roll number, attendance can be marked</li>
-<p align="center">
-  <img src="https://github.com/harshitgokharu/AttendanceManager/blob/master/demo/display_attendance.png?raw=true" height=282px, width=158px>
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/news.PNG" height=80%, width=80%>
 </p>
