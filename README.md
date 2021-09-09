@@ -12,7 +12,7 @@ http://cryptodetail.herokuapp.com
 <li>Twitter wall shows latest tweets regarding cryptocurrencies from popular personalities in crypto space</li>
 <br>
 <p align="center">
-  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/news.PNG" height=80%, width=80%>
+  <img src="https://github.com/harshitgokharu/cryptodetails/blob/main/demo/twitter.PNG" height=80%, width=80%>
 </p>
 <li>News wall shows latest news regarding cryptocurrencies from 30+ sources</li>
 <br>
