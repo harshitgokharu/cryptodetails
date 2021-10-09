@@ -1390,41 +1390,6 @@ $.get(CORS_PROXY + 'http://feeds.feedburner.com/benzinga/TSDq', function (data) 
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_blockworks()    
-});
-
-}
-
-
-function func_blockworks(){
-var html = ``;
-$.get(CORS_PROXY + 'https://blockworks.co/feed/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("<p>")[1].split("</p>")[0]}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Blockworks</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_thewallstreetjournal()    
 });
 
@@ -1678,7 +1643,6 @@ $.get(CORS_PROXY + 'https://ambcrypto.com/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>AMBCrypto</b></small>
@@ -1827,7 +1791,6 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/buzz.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>News18</b></small>
@@ -1854,7 +1817,6 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/business.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>News18</b></small>
@@ -1881,7 +1843,6 @@ $.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>News18</b></small>
