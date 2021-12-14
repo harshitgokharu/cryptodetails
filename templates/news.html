@@ -80,7 +80,7 @@
 // To get around this, you can use a proxy.
 const CORS_PROXY = "https://access-cors.herokuapp.com/"
 
-var strcmp = ["Bitcoin","bitcoin", "bitcoin","Bitcoin's","BTC","Ethereum","Ether","ETH", "Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto", "DeFi", "Decentralized", "decentralized"];
+var strcmp = ["blockchain","Blockchain","Bitcoin","bitcoin", "bitcoin","Bitcoin's","BTC","Ethereum","Ether","ETH", "Ripple","ripple","XRP","xrp","Cryptocurrency","cryptocurrency","Crypto","crypto", "DeFi", "Decentralized", "decentralized"];
 
 var dt = new Date();
 
@@ -91,8 +91,8 @@ today.setMinutes( dt.getMinutes() + 30 );
 var yesterday = new Date()
 yesterday.setHours( dt.getHours() - 4 );
 
-today = today.toUTCString().slice(0,17);
-yesterday = yesterday.toUTCString().slice(0,17);
+today = today.toUTCString().slice(0,16);
+yesterday = yesterday.toUTCString().slice(0,16);
 
 
 
@@ -116,10 +116,6 @@ var dtcmp = [yesterday, today, iyesterday, itoday]
 
 
 
-
-
-
-
 function func_cryptobriefing(){
 var html = ``;
   
@@ -130,8 +126,8 @@ $.get(CORS_PROXY + 'https://cryptobriefing.com/feed/', function (data) {
     
 
 
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){        
+
         html += `
            
              <a href="${el.find("link").text()}" target="_blank">
@@ -143,6 +139,47 @@ $.get(CORS_PROXY + 'https://cryptobriefing.com/feed/', function (data) {
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Crypto Briefing</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_coindesk()  
+});
+
+
+}
+
+
+
+
+function func_coindesk(){
+var html = ``;
+  
+$.get(CORS_PROXY + 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+                  <p class="card-text">${el.find("description").text()}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>CoinDesk</b></small>
                </div>
              </div>
              </a>
