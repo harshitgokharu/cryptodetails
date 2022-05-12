@@ -116,46 +116,6 @@ var dtcmp = [yesterday, today, iyesterday, itoday]
 
 
 
-function func_cryptobriefing(){
-var html = ``;
-  
-$.get(CORS_PROXY + 'https://cryptobriefing.com/feed/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){        
-
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Crypto Briefing</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_coindesk()  
-});
-
-
-}
-
-
-
 
 function func_coindesk(){
 var html = ``;
@@ -1906,7 +1866,7 @@ func_remimg()
 
 
 
-func_cryptobriefing()
+func_coindesk()
 
 </script>
 
