@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -45,10 +46,10 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
            <div class="navbar-nav">
-             <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter Wall</a>
+             <a class="nav-link" href="/">Home</a>
+             <a class="nav-link" href="/twitter">Twitter Wall</a>
              <a class="nav-link active" aria-current="page" href="#">News Wall</a>
-             <a class="nav-link" href="{{ url_for('invret') }}">Investment Calculator</a>
+             <a class="nav-link" href="/invret">Investment Calculator</a>
            </div>
          </div>
        </div>
@@ -113,6 +114,46 @@ console.log(itoday)
 var dtcmp = [yesterday, today, iyesterday, itoday]
 
 
+
+
+
+function func_cryptobriefing(){
+var html = ``;
+  
+$.get(CORS_PROXY + 'https://cryptobriefing.com/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+    
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){        
+
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Crypto Briefing</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
+func_coindesk()  
+});
+
+
+}
 
 
 
@@ -1866,7 +1907,7 @@ func_remimg()
 
 
 
-func_coindesk()
+func_cryptobriefing()
 
 </script>
 
