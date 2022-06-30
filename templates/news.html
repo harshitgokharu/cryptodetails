@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -45,10 +46,10 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
            <div class="navbar-nav">
-             <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-             <a class="nav-link" href="{{ url_for('twitter') }}">Twitter Wall</a>
+             <a class="nav-link" href="/">Home</a>
+             <a class="nav-link" href="/twitter">Twitter Wall</a>
              <a class="nav-link active" aria-current="page" href="#">News Wall</a>
-             <a class="nav-link" href="{{ url_for('invret') }}">Investment Calculator</a>
+             <a class="nav-link" href="/invret">Investment Calculator</a>
            </div>
          </div>
        </div>
@@ -720,12 +721,54 @@ $.get(CORS_PROXY + 'https://www.fool.ca/feed/', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)  
-func_seekingalpha()  
+func_bitcoin()  
 });
 
 });
 
 }
+
+
+
+
+function func_bitcoin(){
+var html = ``;
+$.get(CORS_PROXY + 'https://news.bitcoin.com/feed/', function (data) {
+    $(data).find("item").each(function () { // or "item" or whatever suits your feed
+        var el = $(this);
+     
+        
+
+
+        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
+        
+        html += `
+           
+             <a href="${el.find("link").text()}" target="_blank">
+             <div class="card h-100">
+               
+               <div class="card-body">
+                  <h5 class="card-title">${el.find("title").text()}</h5>
+                  <p class="card-text">${el.find("description").text().split("/>")[1]}</p>
+               </div>
+               <div class="card-footer">
+                 <small class="text-muted"><b>Bitcoin.com</b></small>
+               </div>
+             </div>
+             </a>
+           </div>
+      `;
+      }
+    });
+
+document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
+func_seekingalpha()    
+});
+
+}
+
+
+
 
 
 
