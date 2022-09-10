@@ -1062,7 +1062,7 @@ function func_financialtimes(){
 var html = ``;
 
 
-$.get(CORS_PROXY + 'https://www.ft.com/bitcoin?format=rss', function (data) {
+$.get('https://www.ft.com/bitcoin?format=rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
