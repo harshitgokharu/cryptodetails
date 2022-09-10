@@ -99,7 +99,7 @@ def twitter():
 def news():
   return render_template("news.html")
 
-@app.route('/invretresult', methods=['POST'])
+@app.route('/invretresult', methods=['GET','POST'])
 def invretresult():
 
     
