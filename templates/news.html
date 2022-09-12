@@ -1053,7 +1053,7 @@ $.get(CORS_PROXY + 'https://www.mirror.co.uk/money/?service=rss', function (data
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_ndtv()    
+func_financialtimes()    
 });
 
 }
@@ -1343,39 +1343,6 @@ $.get(CORS_PROXY + 'https://www.huffpost.com/section/business/feed', function (d
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>HuffPost</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_benzinga()    
-});
-
-}
-
-
-function func_benzinga(){
-var html = ``;
-$.get(CORS_PROXY + 'http://feeds.feedburner.com/benzinga/TSDq', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Benzinga</b></small>
                </div>
              </div>
              </a>
