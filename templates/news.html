@@ -1387,49 +1387,13 @@ $.get(CORS_PROXY + 'https://www.crypto-news-flash.com/feed/', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_marketwatch()    
-});
-
-}
-
-
-
-
-
-
-
-function func_marketwatch(){
-var html = ``;
-$.get(CORS_PROXY + 'http://feeds.marketwatch.com/marketwatch/topstories/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-        if((strcmp.some(v => el.find("title").text().includes(v)) || strcmp.some(v => el.find("description").text().includes(v))) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Market Watch</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_theprint()    
 });
 
 }
+
+
+
 
 
 
@@ -1510,20 +1474,12 @@ func_quartz()
 }
 
 
-
-
-
-
-
-
 function func_quartz(){
 var html = ``;
-
 $.get(CORS_PROXY + 'https://cms.qz.com/feed/', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
-     
-       
+
 
 
         if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
@@ -1535,7 +1491,7 @@ $.get(CORS_PROXY + 'https://cms.qz.com/feed/', function (data) {
                
                <div class="card-body">
                   <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
+               
                </div>
                <div class="card-footer">
                  <small class="text-muted"><b>Quartz</b></small>
@@ -1548,13 +1504,10 @@ $.get(CORS_PROXY + 'https://cms.qz.com/feed/', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
-func_axios()   
- 
-});   
+func_axios()    
+});
 
 }
-
-
 
 
 
@@ -1590,11 +1543,6 @@ func_news18()
 });
 
 }
-
-
-
-
-
 
 
 
