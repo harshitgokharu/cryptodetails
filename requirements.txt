@@ -8,4 +8,4 @@ scipy>=0.15.1
 scikit-learn>=0.18
 matplotlib>=1.4.3
 pandas>=0.19
-investpy@403-patch
+git+https://github.com/alvarobartt/investpy@403-patch
