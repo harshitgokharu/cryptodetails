@@ -189,53 +189,13 @@ $.get(CORS_PROXY + 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=x
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_businessstandard()  
-});
-
-
-}
-
-
-
-
-
-function func_businessstandard(){
-var html = ``;
-  
-$.get(CORS_PROXY + 'https://www.business-standard.com/rss/markets-cryptocurrency-10622.rss', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Business Standard</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
 func_decrypt()  
 });
 
 
 }
+
+
 
 
 
