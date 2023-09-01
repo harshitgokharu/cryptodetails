@@ -275,7 +275,7 @@ $.get(CORS_PROXY + 'https://cointelegraph.com/rss', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_economictimes()  
+func_economictimes()
 });
 
 
@@ -449,7 +449,7 @@ $.get(CORS_PROXY + 'https://www.cnbc.com/id/100003114/device/rss/rss.html', func
 
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_thesun()  
+func_aljazeera() 
 });
 });
 
@@ -458,84 +458,6 @@ func_thesun()
 
 
 
-
-function func_thesun(){
-var html = ``;
-  
-$.get(CORS_PROXY + 'https://www.thesun.co.uk/tech/feed/', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>The Sun</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_thedailymail()  
-});
-
-
-}
-
-
-function func_thedailymail(){
-var html = ``;
-  
-$.get(CORS_PROXY + 'https://www.dailymail.co.uk/money/index.rss', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <img src="${el.find('media\\:content, content').attr('url')}" class="card-img-top" alt="...">
-                  <p class="card-text">${el.find("description").text()}</p>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>The Daily Mail</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_aljazeera()  
-});
-
-
-}
 
 
 
