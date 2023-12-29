@@ -246,7 +246,7 @@ func_cointelegraph()
 function func_cointelegraph(){
 var html = ``;
   
-$.get(CORS_PROXY + 'https://cointelegraph.com/rss', function (data) {
+$.get('https://cointelegraph.com/rss', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
      
