@@ -233,49 +233,7 @@ $.get(CORS_PROXY + 'https://decrypt.co/feed', function (data) {
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_cointelegraph()  
-});
-
-
-}
-
-
-
-
-
-function func_cointelegraph(){
-var html = ``;
-  
-$.get('https://cointelegraph.com/rss', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-    
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-        
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-                  <img src="${el.find("enclosure").attr('url')}" class="card-img-top" alt="...">
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>Cointelegraph</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_economictimes()
+func_economictimes()  
 });
 
 
@@ -1392,30 +1350,6 @@ func_news18()
 
 function func_news18(){
 var html = ``;
-$.get(CORS_PROXY + 'https://www.news18.com/rss/buzz.xml', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>News18</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
 $.get(CORS_PROXY + 'https://www.news18.com/rss/business.xml', function (data) {
     $(data).find("item").each(function () { // or "item" or whatever suits your feed
         var el = $(this);
