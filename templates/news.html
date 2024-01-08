@@ -1340,79 +1340,13 @@ $.get(CORS_PROXY + 'https://api.axios.com/feed/?utm_source=newsletter&utm_medium
     });
 
 document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html) 
-func_news18()    
-});
-
-}
-
-
-
-
-function func_news18(){
-var html = ``;
-$.get(CORS_PROXY + 'https://www.news18.com/rss/business.xml', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-     
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>News18</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-$.get(CORS_PROXY + 'https://www.news18.com/rss/tech.xml', function (data) {
-    $(data).find("item").each(function () { // or "item" or whatever suits your feed
-        var el = $(this);
-     
-
-
-        if(strcmp.some(v => el.find("title").text().includes(v)) && dtcmp.some(v => el.find("pubDate").text().includes(v))){ 
-       
-        html += `
-           
-             <a href="${el.find("link").text()}" target="_blank">
-             <div class="card h-100">
-               
-               <div class="card-body">
-                  <h5 class="card-title">${el.find("title").text()}</h5>
-               </div>
-               <div class="card-footer">
-                 <small class="text-muted"><b>News18</b></small>
-               </div>
-             </div>
-             </a>
-           </div>
-      `;
-      }
-    });
-
-document.getElementsByClassName("card-columns")[0].insertAdjacentHTML("beforeend", html)
 $(".spinner-border").remove()    
-
 console.log($('.card-body').length)
 console.log("end")
-func_remimg()
-});
+func_remimg() 
 });
 
 }
-
 
 
 
